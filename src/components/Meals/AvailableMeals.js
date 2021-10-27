@@ -6,6 +6,7 @@ import classes from './AvailableMeals.module.css';
 
 const AvailableMeals = () => {
   const [meals, setMeals] = useState([]);
+  const [isLoading, setIsLoading] = useState(true); // Initial state is 'true' because we fetch the meals data as soon as the component renders; would usually be set to false
 
   useEffect(() => {
     const fetchMeals = async () => {
@@ -24,10 +25,20 @@ const AvailableMeals = () => {
       }
 
       setMeals(loadedMeals);
+      setIsLoading(false);
     }
 
     fetchMeals();
   }, []);
+
+  // Having this 'if' statement here, if 'isLoading' is true, we return this jsx, and the code below this 'if' statement is never executed
+  if (isLoading) {
+    return (
+      <section className={classes['meals-loading']}>
+        <p>Loading...</p>
+      </section>
+    )
+  };
 
   const mealsList = meals.map((meal) => (
     <MealItem
