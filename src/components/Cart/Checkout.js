@@ -44,7 +44,12 @@ const Checkout = (props) => {
       return;
     };
 
-    // Submit form here
+    props.onConfirm({
+      name: enteredName,
+      street: enteredStreet,
+      city: enteredCity,
+      postalCode: enteredPostalCode,
+    });
   };
 
   // A lot of code duplication here that could be handled with a custom form hook or an input component, but in the name of simplicity, won't do that here
